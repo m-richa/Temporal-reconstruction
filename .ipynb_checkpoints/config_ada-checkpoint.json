@@ -1,0 +1,51 @@
+{
+    "name": "ResNetAE_L1",
+    "n_gpu": 4,
+
+    "arch": {
+        "type": "ResNetAE",
+        "args": {}
+    },
+    "dataloader": {
+        "type": "TemporalDataloader",
+        "args":{
+            "dataset_path": "/../../../ssd_scratch/cvit/richa/dataset/",
+            "seq_ID" : "03384",
+            "K_frames": 4,
+            "batch_size": 4,
+            "shuffle": true,
+            "validation_split": 0.0,
+            "num_workers": 2
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0005,
+            "weight_decay": 0.01,
+            "amsgrad": true
+        }
+    },
+    "loss": "depth_L1_loss",
+    "metrics": [
+    ],
+    "lr_scheduler": {
+        "type": "ExponentialLR",
+        "args": {
+            "step_size": 50,
+            "gamma": 0.99
+        }
+    },
+    "trainer": {
+        "epochs": 25,
+
+        "save_dir": "/../../../ssd_scratch/cvit/richa/saved/",
+        "save_period": 2,
+        "verbosity": 2,
+        
+        "monitor": "off",
+        "early_stop": 10,
+
+        "tensorboard": true
+    }
+}
